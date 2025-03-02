@@ -5,11 +5,12 @@ import './App.css'
 import axios from 'axios'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [array, setArray] = useState([]);
 
   const fetchApi = async () => {
     const response = await axios.get("http://localhost:8080/api");
-    console.log(response);
+    setArray(response.data.clouds);
   }
 
   useEffect(() =>{
@@ -27,6 +28,13 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <div className="cloud-array">
+        {array.map((cloud, index) => (
+          <ul key={index}>
+            <li>{cloud}</li>
+          </ul>
+        ))}
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -39,7 +47,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
 export default App
